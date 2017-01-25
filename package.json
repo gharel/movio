@@ -1,0 +1,34 @@
+{
+	"name": "movio",
+	"version": "0.1.0",
+	"description": "Your local movie's advisor",
+	"main": "index.html",
+	"scripts": {
+		"start": "nw --enable-logging=stderr"
+	},
+	"author": "Guillaume HAREL <harel.guillaume@live.fr>",
+	"license": "ISC",
+	"window": {
+		"toolbar": true,
+		"width": 1000,
+		"height": 600,
+		"min_width": 600,
+		"min_height": 400
+	},
+	"devDependencies": {
+		"eslint": "^3.14.0",
+		"imdb-api": "^2.2.1",
+		"nw": "0.19.5-sdk",
+		"pug": "^2.0.0-beta8"
+	},
+	"eslintConfig": {
+		"parserOptions": {
+			"ecmaVersion": 6
+		},
+		"env": {
+			"browser": true,
+			"es6": true,
+			"node": true
+		}
+	}
+}

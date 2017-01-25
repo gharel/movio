@@ -1,0 +1,9 @@
+ul(class='movies')
+    each val in movies
+        li(class='movie')
+            span(class='movie__content')
+                img(class='movie__picture' src=val.poster)
+                span(class='movie__infos')
+                    span(class='movie__rating')= val.rating
+                    span(class='movie__title')= val.title + " "
+                    span(class='movie__year')= val.year
