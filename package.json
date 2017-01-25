@@ -16,6 +16,7 @@
 		"min_height": 400
 	},
 	"devDependencies": {
+		"allocine-api": "^0.1.9",
 		"eslint": "^3.14.0",
 		"imdb-api": "^2.2.1",
 		"nw": "0.19.5-sdk",

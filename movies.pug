@@ -6,4 +6,5 @@ ul(class='movies')
                 span(class='movie__infos')
                     span(class='movie__rating')= val.rating
                     span(class='movie__title')= val.title + " "
-                    span(class='movie__year')= val.year
+                    if val.year
+                        span(class='movie__year')= val.year
