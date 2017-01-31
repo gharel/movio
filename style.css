@@ -43,6 +43,7 @@ body {
 	text-decoration: none;
 	padding: 10px;
 	line-height: 20px;
+	transition: background 0.2s;
 }
 
 .header__link:hover {
@@ -62,7 +63,6 @@ body {
 }
 
 .movies {
-	background: #dedede;
 	margin: 0;
 	list-style: none;
 	display: flex;

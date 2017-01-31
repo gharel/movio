@@ -1,11 +1,13 @@
 'use strict';
 
-// TODO button to choose folder dynamically
-// TODO Filter by genre, actor, director
+// TODO IndexedDB to store movie
+// TODO Comments
+// TODO SASS
+// TODO BrowserSync
 // TODO Details page for a movie
+// TODO Filter by genre, actor, director
 // TODO Launch with vlc or select in explorer
 
-const folder = 'C:\\Users\\Guillaume\\Downloads';
 const path = require('path');
 const fs = require('fs');
 const gui = require('nw.gui');
@@ -18,12 +20,21 @@ let console = win.window.console;
 let movies = [];
 let moviespath = [];
 let apiused = "imdb"; // imdb or allocine
-let sortused = "title"; // title, year or rating
 let sortasc = true;
 let fallbackapi = true;
 let defaultindex = 0;
 let flag = false;
+let sortused = "title"; // title, year or rating
+let folder;
 let folderpath;
+
+function getUserHome() {
+	let folder = process.env[(process.platform === 'win32') ? 'USERPROFILE' : 'HOME'];
+	if (process.platform === 'win32') {
+		folder += '\\Downloads';
+	}
+	return folder;
+}
 
 function compare(a, b) {
 	if (a[sortused] < b[sortused]) {
@@ -45,10 +56,13 @@ function renderLayout() {
 	pug.renderFile('layout.pug', {}, (err, res) => {
 		document.getElementById("movio").innerHTML = res;
 
+		localStorage.setItem("currentfolder", folder);
 		document.querySelector('.js-open').addEventListener('click', (event) => {
 			openFolderModal();
 		});
 
+		localStorage.setItem("sortby", sortused);
+		localStorage.setItem("asc", sortasc);
 		document.querySelector('.js-sort').addEventListener('click', (event) => {
 			if (sortused === "title" && !sortasc) {
 				sortused = "year";
@@ -59,10 +73,14 @@ function renderLayout() {
 			}
 
 			sortasc = !sortasc;
+			localStorage.setItem("sortby", sortused);
+			localStorage.setItem("asc", sortasc);
 
 			renderMovie();
 		});
 
+		localStorage.setItem("currentapi", apiused);
+		localStorage.setItem("apifallback", fallbackapi);
 		document.querySelector('.js-api').addEventListener('click', (event) => {
 			let pending;
 
@@ -72,6 +90,7 @@ function renderLayout() {
 				apiused = "imdb";
 			}
 
+			localStorage.setItem("currentapi", apiused);
 			movies = [];
 
 			pending = moviespath.length;
@@ -94,7 +113,7 @@ function openFolderModal() {
 		if (!flag) {
 			flag = true;
 			folderpath = event.target.value;
-			console.log(folderpath);
+			localStorage.setItem("currentfolder", folderpath);
 			readdirectory(folderpath);
 		}
 	});
@@ -283,7 +302,19 @@ function readdirectory(folder) {
 	});
 }
 
+function getPreviousConfig() {
+	fallbackapi = localStorage.getItem('apifallback');
+	sortasc = localStorage.getItem('asc');
+	apiused = localStorage.getItem('currentapi');
+	folder = localStorage.getItem('currentfolder');
+	sortused = localStorage.getItem('sortby');
+}
+
 window.onload = function () {
+	folder = getUserHome();
+
+	getPreviousConfig();
+
 	renderLayout();
 
 	readdirectory(folder);
