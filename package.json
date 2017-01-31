@@ -4,23 +4,24 @@
 	"description": "Your local movie's advisor",
 	"main": "index.html",
 	"scripts": {
-		"start": "nw --enable-logging=stderr"
+		"prestart": "echo prestart",
+		"start": "nw --enable-logging=stderr",
+		"poststart": "echo poststart"
 	},
 	"author": "Guillaume HAREL <harel.guillaume@live.fr>",
-	"license": "ISC",
+	"license": "MIT",
 	"window": {
-		"toolbar": true,
 		"width": 1000,
 		"height": 600,
 		"min_width": 600,
 		"min_height": 400
 	},
 	"devDependencies": {
-		"allocine-api": "^0.1.9",
-		"eslint": "^3.14.0",
-		"imdb-api": "^2.2.1",
-		"nw": "0.19.5-sdk",
-		"pug": "^2.0.0-beta8"
+		"allocine-api": "~0.1.9",
+		"eslint": "~3.14.0",
+		"imdb-api": "~2.2.1",
+		"nw": "~0.19.5-sdk",
+		"pug": "~2.0.0-beta8"
 	},
 	"eslintConfig": {
 		"parserOptions": {

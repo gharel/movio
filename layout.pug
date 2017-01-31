@@ -1,0 +1,21 @@
+header(class='header')
+    nav(class='header__nav')
+        ul(class='header__menu')
+            li(class='header__item')
+                a(class='header__link js-open' href='#')
+                    i(class="fa fa-folder fa-lg")
+                    | Open folder
+                    input(class='field-folder js-folder' type='file' nwdirectory)
+            li(class='header__item')
+                a(class='header__link js-sort' href='#')
+                    i(class="fa fa-sort fa-lg")
+                    | Sort movies
+            li(class='header__item')
+                a(class='header__link js-filter' href='#')
+                    i(class="fa fa-filter fa-lg")
+                    | Filter movies
+            li(class='header__item')
+                a(class='header__link js-api' href='#')
+                    i(class="fa fa-database fa-lg")
+                    | Change movie's database
+ul(class='movies' id="js-main")

@@ -1,10 +1,10 @@
-ul(class='movies')
-    each val in movies
-        li(class='movie')
-            span(class='movie__content')
+each val in movies
+    li(class='movie')
+        a(class='movie__content' href='#')
+            if val.poster != "N/A"
                 img(class='movie__picture' src=val.poster)
-                span(class='movie__infos')
-                    span(class='movie__rating')= val.rating
-                    span(class='movie__title')= val.title + " "
-                    if val.year
-                        span(class='movie__year')= val.year
+            span(class='movie__infos')
+                span(class='movie__rating')= val.rating
+                span(class='movie__title')= val.title + " "
+                if val.year
+                    span(class='movie__year')= val.year
