@@ -1,13 +1,6 @@
 (function () {
 	'use strict';
 
-	// TODO IndexedDB to store movie
-	// TODO SASS
-	// TODO BrowserSync
-	// TODO Details page for a movie
-	// TODO Filter by genre, rating, year, actor, director
-	// TODO Launch movie with vlc or open explorer and select it
-
 	const path = require('path');
 	const fs = require('fs');
 	const gui = require('nw.gui');
