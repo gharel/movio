@@ -1,0 +1,148 @@
+* {
+	box-sizing: border-box;
+}
+
+body {
+	background: #efefef;
+	font-family: 'Ubuntu', sans-serif;
+	padding-top: 40px;
+}
+
+.loading {
+	text-align: center;
+	margin: 20px auto;
+	font-style: italic;
+}
+
+.header {
+	position: fixed;
+	z-index: 2;
+	top: 0;
+	left: 0;
+	width: 100%;
+
+	&__menu {
+		list-style: none;
+		padding: 0;
+		margin: 0;
+		background: #444;
+	}
+
+	&__item {
+		display: inline-block;
+		& + & {
+			border-left: 1px solid rgba(255, 255, 255, 0.5);
+		}
+	}
+
+	&__link {
+		display: block;
+		color: #fff;
+		text-decoration: none;
+		padding: 10px;
+		line-height: 20px;
+		transition: background 0.2s;
+
+		&:hover {
+			background: #000;
+		}
+
+		&:active {
+			background: #888;
+		}
+
+		i {
+			margin-right: 5px;
+		}
+	}
+}
+
+.field-folder {
+	display: none;
+}
+
+.movies {
+	margin: 0;
+	list-style: none;
+	display: flex;
+	align-items: stretch;
+	flex-wrap: wrap;
+	padding: 5px;
+}
+
+.movie {
+	flex: 0 1 20%;
+	min-width: 100px;
+	padding: 5px;
+
+	&__content {
+		background: #000;
+		display: block;
+		font-weight: bold;
+		position: relative;
+		height: 100%;
+		text-decoration: none;
+		color: inherit;
+		z-index: 1;
+
+		&:hover .movie__infos {
+			min-height: 100%;
+			background: rgba(255, 255, 255, 0.9);
+			text-overflow: clip;
+			overflow: auto;
+			white-space: normal;
+		}
+
+		&:hover .movie__rating {
+			opacity: 1;
+		}
+	}
+
+	&__picture {
+		width: 100%;
+		height: 100%;
+		display: block;
+		min-height: 150px;
+	}
+
+	&__infos {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		width: 100%;
+		min-height: 0;
+		padding: 5%;
+		background: rgba(255, 255, 255, 0.5);
+		text-overflow: ellipsis;
+		overflow: hidden;
+		white-space: nowrap;
+		transition: all .2s;
+	}
+
+	&__title {
+		display: inline;
+	}
+
+	&__rating {
+		display: block;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		padding: 5%;
+		opacity: 0;
+		font-size: 3rem;
+		transition: opacity .2s;
+	}
+
+	&__year {
+		display: inline;
+
+		&::before {
+			content: "(";
+		}
+
+		&::after {
+			content: ")";
+		}
+	}
+}

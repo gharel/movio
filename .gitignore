@@ -71,3 +71,4 @@ fabric.properties
 ### Node ###
 node_modules
 npm-debug.log
+build

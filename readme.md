@@ -30,7 +30,6 @@ node-imdb-api: https://github.com/worr/node-imdb-api
 node-allocine-api: https://github.com/leeroybrun/node-allocine-api
 
 ## Install
-Not tested yet (maybe you have to use `npm i -g nw` and/or `npm i -g browser-sync`)
 ```sh
 git clone git@github.com:gharel/movio.git
 cd movio

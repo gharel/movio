@@ -37,8 +37,8 @@
 	function init() {
 		if (!options.log) {
 			// in production, we can remove console.log with options.log set to false
-			console.log = function () {
-			};
+			console.log = function () {};
+			win.showDevTools();
 		}
 
 		window.onload = function () {
@@ -147,7 +147,7 @@
 
 	// generate HTML layout of application and add listener for menu item
 	function renderLayout() {
-		pug.renderFile('layout.pug', {}, (err, res) => {
+		pug.renderFile('views/layout.pug', {}, (err, res) => {
 			setConfig();
 
 			document.getElementById("movio").innerHTML = res;
@@ -171,7 +171,7 @@
 		let el;
 		sortArray(moviesinfos, options.order);
 
-		pug.renderFile('movies.pug', {"movies": moviesinfos}, (err, res) => {
+		pug.renderFile('views/movies.pug', {"movies": moviesinfos}, (err, res) => {
 			working = false;
 			document.getElementById("js-main").innerHTML = res;
 
