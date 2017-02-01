@@ -1,10 +1,10 @@
 # Movio
 **:warning: Work in progress :warning:**
 
-Desktop application to help you on movie's choice
+Desktop application to help you on local movie's choice
 
 ## Tasks list
-- [ ] Use indexedDB to store movie data from API
+- [x] Use indexedDB to store movie data from API
 - [ ] Use SASS
 - [ ] Use BrowserSync to live reload
 - [ ] Create Details page for a movie
