@@ -43,7 +43,8 @@
 	function init() {
 		if (options.env !== "dev") {
 			// in production, we can remove console.log with options.log set to false
-			console.log = function () {};
+			console.log = function () {
+			};
 		}
 
 		window.onload = function () {
@@ -53,7 +54,7 @@
 					renderLayout();
 					getDefaultFolder();
 					getAllMoviesFiles(options.folder);
-				},5000);
+				}, 5000);
 			});
 		};
 	}
@@ -155,18 +156,28 @@
 	// generate HTML layout of application and add listener for menu item
 	function renderLayout() {
 		pug.renderFile('app/views/layout.pug', {}, (err, res) => {
+			let elapiimdb, elapiallocine, elsorttitle, elsortyear, elsortrating, elsortasc, elsortdesc;
 			setConfig();
 
 			document.querySelector(".js-page").innerHTML = res;
+			document.querySelector('.js-path').innerHTML = options.folder;
+
+			elapiimdb = document.querySelector('.js-api-imdb');
+			elapiallocine = document.querySelector('.js-api-allocine');
+			elsorttitle = document.querySelector('.js-sort-title');
+			elsortyear = document.querySelector('.js-sort-year');
+			elsortrating = document.querySelector('.js-sort-rating');
+			elsortasc = document.querySelector('.js-sort-asc');
+			elsortdesc = document.querySelector('.js-sort-desc');
 
 			document.querySelector('.js-minimize').addEventListener('click', () => {
 				win.minimize();
 			});
 
 			document.querySelector('.js-maximize').addEventListener('click', () => {
-				if(maximize){
+				if (maximize) {
 					win.unmaximize();
-				}else{
+				} else {
 					win.maximize();
 				}
 				maximize = !maximize;
@@ -185,16 +196,71 @@
 				openNewFolder(event);
 			});
 
-			document.querySelector('.js-sort').addEventListener('click', () => {
-				sortMovies();
+			document.querySelector('.js-sort').addEventListener('click', function () {
+				this.parentNode.classList.toggle('active');
+				if (options.order === 'asc') {
+					elsortasc.classList.add('active');
+				} else {
+					elsortdesc.classList.add('active');
+				}
+				if (options.orderby === 'title') {
+					elsorttitle.classList.add('active');
+				} else if(options.orderby === 'year') {
+					elsortyear.classList.add('active');
+				} else {
+					elsortrating.classList.add('active');
+				}
+			});
+			elsortasc.addEventListener('click', function () {
+				this.classList.add('active');
+				elsortdesc.classList.remove('active');
+				sortMovies(null, 'asc');
+			});
+			elsortdesc.addEventListener('click', function () {
+				this.classList.add('active');
+				elsortasc.classList.remove('active');
+				sortMovies(null, 'desc');
+			});
+			elsorttitle.addEventListener('click', function () {
+				this.classList.add('active');
+				elsortyear.classList.remove('active');
+				elsortrating.classList.remove('active');
+				sortMovies('title', null);
+			});
+			elsortyear.addEventListener('click', function () {
+				this.classList.add('active');
+				elsorttitle.classList.remove('active');
+				elsortrating.classList.remove('active');
+				sortMovies('year', null);
+			});
+			elsortrating.addEventListener('click', function () {
+				this.classList.add('active');
+				elsortyear.classList.remove('active');
+				elsorttitle.classList.remove('active');
+				sortMovies('rating', null);
 			});
 
-			document.querySelector('.js-filter').addEventListener('click', () => {
-				console.log('filter fired');
+			document.querySelector('.js-filter').addEventListener('click', function () {
+				this.parentNode.classList.toggle('active');
 			});
 
-			document.querySelector('.js-api').addEventListener('click', () => {
-				changeApi();
+			document.querySelector('.js-api').addEventListener('click', function () {
+				this.parentNode.classList.toggle('active');
+				if (options.api === 'imdb') {
+					elapiimdb.classList.add('active');
+				} else {
+					elapiallocine.classList.add('active');
+				}
+			});
+			elapiimdb.addEventListener('click', function () {
+				this.classList.add('active');
+				elapiallocine.classList.remove('active');
+				changeApi('imdb');
+			});
+			elapiallocine.addEventListener('click', function () {
+				this.classList.add('active');
+				elapiimdb.classList.remove('active')
+				changeApi('allocine');
 			});
 		});
 	}
@@ -218,28 +284,24 @@
 
 	// open new folder with a system modal thanks to input file directory
 	function openNewFolder(event) {
-		if(event.target.value && event.target.value !== "" && options.folder !== event.target.value) {
+		if (event.target.value && event.target.value !== "" && options.folder !== event.target.value) {
 			options.folder = event.target.value;
 			localStorage.setItem("folder", options.folder);
 
+			document.querySelector('.js-path').innerHTML = options.folder;
+
 			getAllMoviesFiles(options.folder);
+
 		}
 	}
 
 	// change order and orderby options and render movies after that
-	function sortMovies() {
-		if (options.orderby === "title" && options.order === "desc") {
-			options.orderby = "year";
-		} else if (options.orderby === "year" && options.order === "desc") {
-			options.orderby = "rating";
-		} else if (options.orderby === "rating" && options.order === "desc") {
-			options.orderby = "title"
+	function sortMovies(orderby, order) {
+		if (orderby){
+			options.orderby = orderby;
 		}
-
-		if (options.order === "asc") {
-			options.order = "desc";
-		} else {
-			options.order = "asc";
+		if(order) {
+			options.order = order;
 		}
 
 		localStorage.setItem("orderby", options.orderby);
@@ -249,12 +311,8 @@
 	}
 
 	// change API used to retrieve movie's data
-	function changeApi() {
-		if (options.api === "imdb") {
-			options.api = "allocine";
-		} else {
-			options.api = "imdb";
-		}
+	function changeApi(api) {
+		options.api = api;
 
 		localStorage.setItem("api", options.api);
 
@@ -270,6 +328,8 @@
 			}
 			options.folder = folder;
 			localStorage.setItem('folder', options.folder);
+
+			document.querySelector('.js-path').innerHTML = options.folder;
 		}
 	}
 
@@ -287,7 +347,7 @@
 	function getAllMoviesFiles(folder) {
 		moviesfiles = [];
 
-		if(!folder || folder === ""){
+		if (!folder || folder === "") {
 			getDefaultFolder();
 		}
 		readFolder(folder, (err, res) => {

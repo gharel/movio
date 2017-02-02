@@ -26,7 +26,7 @@
 		"width": 1000,
 		"height": 600,
 		"min_width": 720,
-		"min_height": 500
+		"min_height": 460
 	},
 	"devDependencies": {
 		"allocine-api": "~0.1.9",

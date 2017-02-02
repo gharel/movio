@@ -4,19 +4,21 @@ div(class='wrapper-top')
             span(class='header__thin') Mov
             | io
         nav(class='header__nav')
-            ul(class='header__menu')
-                li(class='header__item')
-                    a(class='header__link js-minimize' href='#')
-                        i(class="icon icon-minus")
-                        | Minimize
-                li(class='header__item')
-                    a(class='header__link js-maximize' href='#')
-                        i(class="icon icon-plus")
-                        | Maximize
-                li(class='header__item')
-                    a(class='header__link js-close' href='#')
-                        i(class="icon icon-close")
-                        | Close
+            div(class='header__wrapper')
+                div(class='header__folder js-path')
+                ul(class='header__menu')
+                    li(class='header__item')
+                        a(class='header__link js-minimize' href='#')
+                            i(class="icon icon-minus")
+                            | Minimize
+                    li(class='header__item')
+                        a(class='header__link js-maximize' href='#')
+                            i(class="icon icon-plus")
+                            | Maximize
+                    li(class='header__item')
+                        a(class='header__link js-close' href='#')
+                            i(class="icon icon-close")
+                            | Close
 div(class='wrapper-bottom')
     main(class='main')
         aside(class='aside')
@@ -31,13 +33,33 @@ div(class='wrapper-bottom')
                         a(class='aside__link js-sort' href='#')
                             i(class="fa fa-sort fa-lg")
                             span(class='aside__text') Sort movies
+                        div(class='aside__subitem')
+                            ul(class='aside__submenu')
+                                li(class='aside__submenu-item')
+                                    a(class='aside__submenu-link js-sort-title' href='#') By title
+                                li(class='aside__submenu-item')
+                                    a(class='aside__submenu-link js-sort-year' href='#') By year
+                                li(class='aside__submenu-item')
+                                    a(class='aside__submenu-link js-sort-rating' href='#') By rating
+                            ul(class='aside__submenu')
+                                li(class='aside__submenu-item')
+                                    a(class='aside__submenu-link js-sort-asc' href='#') Ascending
+                                li(class='aside__submenu-item')
+                                    a(class='aside__submenu-link js-sort-desc' href='#') Descending
                     li(class='aside__item')
                         a(class='aside__link js-filter' href='#')
                             i(class="fa fa-filter fa-lg")
                             span(class='aside__text') Filter movies
+                        div(class='aside__subitem')
                     li(class='aside__item')
                         a(class='aside__link js-api' href='#')
                             i(class="fa fa-database fa-lg")
                             span(class='aside__text') Movie's database
+                        div(class='aside__subitem')
+                            ul(class='aside__submenu')
+                                li(class='aside__submenu-item')
+                                    a(class='aside__submenu-link js-api-imdb' href='#') IMDB
+                                li(class='aside__submenu-item')
+                                    a(class='aside__submenu-link js-api-allocine' href='#') Allociné
         section(class='content')
             ul(class='movies js-movies')

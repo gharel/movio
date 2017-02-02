@@ -25,6 +25,10 @@ body {
 	-webkit-app-region: no-drag;
 }
 
+::-webkit-scrollbar {
+	width: 5px;
+}
+
 .movio {
 	height: 100%;
 }
@@ -100,7 +104,7 @@ body {
 
 	&-bottom {
 		flex: auto;
-		height: 100%
+		height: calc(100% - 50px);
 	}
 }
 
@@ -130,10 +134,30 @@ body {
 		width: $main-width;
 		text-align: right;
 	}
+	&__wrapper {
+		display: table;
+		table-layout: fixed;
+		width: 100%;
+	}
+	&__folder {
+		color: transparentize($white-color, .4);
+		display: table-cell;
+		width: 99%;
+		line-height: 3rem;
+		text-align: left;
+		font-size: .8rem;
+		padding: 0 2rem;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
 	&__menu {
+		width: 145px;
+		white-space: nowrap;
 		margin: 0;
 		padding: 1rem 2rem;
-		display: inline-block;
+		text-align: left;
+		display: table-cell;
 		border-left: 1px solid darken($primary-color, 10);
 		-webkit-app-region: no-drag;
 	}
@@ -233,10 +257,33 @@ body {
 	max-width: $aside-max-width;
 	min-width: $aside-min-width;
 	background: lighten($black-color, 2);
+	overflow: auto;
+	&::-webkit-scrollbar-track {
+		background: lighten($black-color, 20);
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background: darken($primary-color, 20);
+	}
 	&__menu {
 		margin: 0;
 		padding: 0;
 		list-style: none;
+	}
+	&__item {
+		&.active {
+			background: $black-color;
+			.aside__link {
+				color: lighten($black-color, 50);
+				> i {
+					color: lighten($black-color, 40);
+				}
+			}
+			.aside__subitem {
+				max-height: 500px;
+				height: auto;
+			}
+		}
 	}
 	&__link {
 		color: lighten($black-color, 25);
@@ -249,7 +296,7 @@ body {
 		&--open {
 			&:hover {
 				color: lighten($black-color, 50);
-				i {
+				> i {
 					color: lighten($black-color, 40);
 				}
 			}
@@ -259,11 +306,11 @@ body {
 		}
 		&:active {
 			color: lighten($black-color, 50);
-			i {
+			> i {
 				color: lighten($black-color, 40);
 			}
 		}
-		i {
+		> i {
 			display: block;
 			color: lighten($black-color, 10);
 			padding: .1rem 0 .4rem;
@@ -272,12 +319,50 @@ body {
 	&__text {
 		display: block;
 	}
+	&__subitem {
+		max-height: 0;
+		height: 0;
+		transition: max-height .6s;
+		overflow: hidden;
+	}
+	&__submenu {
+		padding: 0;
+		list-style: none;
+		text-align: center;
+		margin-bottom: 1.5rem;
+		padding-bottom: 1px;
+		&-item {
+			display: block;
+			margin-bottom: .5rem;
+		}
+		&-link{
+			padding: .2rem .5rem;
+			display: block;
+			margin: 0 1rem;
+			color: lighten($black-color, 20);
+			border: 1px solid lighten($black-color, 20);
+			text-decoration: none;
+			&.active {
+				border: 1px solid $primary-color;
+				background: $primary-color;
+				color: $white-color;
+			}
+		}
+	}
 }
 
 .content {
 	flex: auto;
 	width: $main-width;
 	background: darken($white-color, 10);
+	overflow: auto;
+	&::-webkit-scrollbar-track {
+		background: $white-color;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background: $primary-color
+	}
 }
 
 .movies {
@@ -336,7 +421,7 @@ body {
 		transition: all .2s;
 		white-space: nowrap;
 		text-overflow: ellipsis;
-		background: transparentize($white-color, .5);
+		background: transparentize($white-color, .25);
 	}
 
 	&__title {

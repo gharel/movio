@@ -12,6 +12,7 @@ Desktop application to help you on local movie's choice
 - [x] Remove system's titlebar
 - [x] Review UI on menu, filter and order
 - [ ] Create Details page for a movie
+- [ ] Refactor code of renderLayout (addEventListener)
 - [ ] Filter movies by genre, rating, year, actor, director
 - [ ] During Splash screen read folder and load movie's infos and display them after loading
 - [ ] Include in app Normalize, Google Fonts et Font Awesome (broken if offline)
