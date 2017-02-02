@@ -2,11 +2,12 @@
 	"name": "movio",
 	"version": "0.0.1",
 	"description": "Your local movie's advisor",
-	"main": "app/index.html",
+	"node-remote": "http://localhost:3000",
+	"main": "http://localhost:3000",
 	"scripts": {
-		"prestart": "gulp sass",
-		"start": "nw --enable-logging=stderr",
-		"gulp": "gulp",
+		"start": "gulp",
+		"movio": "nw --enable-logging=stderr",
+		"prebuild": "echo prebuild",
 		"build": "nwbuild . -p win32,win64"
 	},
 	"author": {

@@ -161,6 +161,10 @@
 				sortMovies();
 			});
 
+			document.querySelector('.js-filter').addEventListener('click', () => {
+				console.log('filter fired');
+			});
+
 			document.querySelector('.js-api').addEventListener('click', () => {
 				changeApi();
 			});

@@ -8,7 +8,7 @@ Desktop application to help you on local movie's choice
 
 - [x] Use indexedDB to store movie data from API
 - [x] Use SASS
-- [ ] Use BrowserSync to live reload
+- [x] Use BrowserSync to live reload
 - [ ] Create Details page for a movie
 - [ ] Filter movies by genre, rating, year, actor, director
 - [ ] Launch movie with vlc or open explorer and select it
@@ -58,8 +58,17 @@ You need Ruby and SASS install on your machine
 Ruby *(already install on MacOS)*: https://www.ruby-lang.org/fr/documentation/installation  
 SASS: http://sass-lang.com/install  
 
+to run gulp (launch browser-sync and watch SASS file)
 ```sh
 npm start
+```
+and then in other terminal window to run NW.js
+```sh
+npm run movio
+```
+if you want to clean your SASS file
+```sh
+npm start csscomb
 ```
 
 ## Licence
