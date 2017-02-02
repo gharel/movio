@@ -43,8 +43,7 @@
 	function init() {
 		if (options.env !== "dev") {
 			// in production, we can remove console.log with options.log set to false
-			console.log = function () {
-			};
+			console.log = function () {};
 		}
 
 		window.onload = function () {
@@ -275,9 +274,28 @@
 
 			el = document.querySelectorAll('.movie__content');
 			el.forEach((element) => {
-				element.addEventListener('click', (event) => {
-					console.log(event.target);
+				element.addEventListener('click', function(event) {
+					renderDetails(this, event);
 				});
+			});
+		});
+	}
+
+	// generate HTML of details page for a movie
+	function renderDetails(movieclicked, event) {
+		console.log(movieclicked);
+		console.log(event);
+
+		pug.renderFile('app/views/details.pug', {}, (err, res) => {
+			let el = document.querySelector(".js-details");
+			let parser = new DOMParser()
+			let nodeElement = parser.parseFromString(res, "text/html").firstChild.querySelector('.js-remove-details');
+
+			el.insertBefore(nodeElement, el.firstChild);
+
+			document.querySelector('.js-close-details').addEventListener('click', function(){
+				let remove = document.querySelector(".js-remove-details");
+				remove.parentNode.removeChild(remove);
 			});
 		});
 	}
