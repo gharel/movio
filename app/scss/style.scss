@@ -1,9 +1,14 @@
+$white-color: #fff;
+$black-color: #000;
+$light-color: #efefef;
+$dark-color: #444;
+
 * {
 	box-sizing: border-box;
 }
 
 body {
-	background: #efefef;
+	background: $light-color;
 	font-family: 'Ubuntu', sans-serif;
 	padding-top: 40px;
 }
@@ -25,30 +30,30 @@ body {
 		list-style: none;
 		padding: 0;
 		margin: 0;
-		background: #444;
+		background: $dark-color;
 	}
 
 	&__item {
 		display: inline-block;
 		& + & {
-			border-left: 1px solid rgba(255, 255, 255, 0.5);
+			border-left: 1px solid transparentize($white-color, .5);
 		}
 	}
 
 	&__link {
 		display: block;
-		color: #fff;
+		color: $white-color;
 		text-decoration: none;
 		padding: 10px;
 		line-height: 20px;
-		transition: background 0.2s;
+		transition: background .2s;
 
 		&:hover {
-			background: #000;
+			background: darken($dark-color, 20);
 		}
 
 		&:active {
-			background: #888;
+			background: lighten($dark-color, 20);
 		}
 
 		i {
@@ -76,7 +81,7 @@ body {
 	padding: 5px;
 
 	&__content {
-		background: #000;
+		background: $black-color;
 		display: block;
 		font-weight: bold;
 		position: relative;
@@ -87,7 +92,7 @@ body {
 
 		&:hover .movie__infos {
 			min-height: 100%;
-			background: rgba(255, 255, 255, 0.9);
+			background: transparentize($white-color, .1);
 			text-overflow: clip;
 			overflow: auto;
 			white-space: normal;
@@ -112,7 +117,7 @@ body {
 		width: 100%;
 		min-height: 0;
 		padding: 5%;
-		background: rgba(255, 255, 255, 0.5);
+		background: transparentize($white-color, .5);
 		text-overflow: ellipsis;
 		overflow: hidden;
 		white-space: nowrap;

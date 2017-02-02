@@ -5,7 +5,7 @@ Desktop application to help you on local movie's choice
 
 ## Tasks list
 - [x] Use indexedDB to store movie data from API
-- [ ] Use SASS
+- [x] Use SASS
 - [ ] Use BrowserSync to live reload
 - [ ] Create Details page for a movie
 - [ ] Filter movies by genre, rating, year, actor, director

@@ -71,4 +71,12 @@ fabric.properties
 ### Node ###
 node_modules
 npm-debug.log
+
+### NW-Builder ###
 build
+
+### Specifics ###
+**/style.css
+**/style.css.map
+**/style.min.css
+**/style.min.css.map

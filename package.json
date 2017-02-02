@@ -4,11 +4,9 @@
 	"description": "Your local movie's advisor",
 	"main": "app/index.html",
 	"scripts": {
-		"prestart": "echo launch Movio",
+		"prestart": "gulp sass",
 		"start": "nw --enable-logging=stderr",
-		"poststart": "echo close Movio",
-		"build": "nwbuild . -p win32,win64",
-		"gulp": "gulp"
+		"build": "nwbuild . -p win32,win64"
 	},
 	"author": {
 		"name": "Guillaume HAREL",
@@ -31,7 +29,9 @@
 		"browser-sync": "~2.18.7",
 		"eslint": "~3.14.1",
 		"gulp": "~3.9.1",
+		"gulp-rename": "~1.2.2",
 		"gulp-sass": "~3.1.0",
+		"gulp-sourcemaps": "~2.4.0",
 		"imdb-api": "~2.2.1",
 		"nw": "~0.20.0-sdk",
 		"nw-builder": "~3.1.3",
