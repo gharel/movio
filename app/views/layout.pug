@@ -1,21 +1,43 @@
-header(class='header')
-    nav(class='header__nav')
-        ul(class='header__menu')
-            li(class='header__item')
-                a(class='header__link js-open' href='#')
-                    i(class="fa fa-folder fa-lg")
-                    | Open folder
-                    input(class='field-folder js-folder' type='file' nwdirectory)
-            li(class='header__item')
-                a(class='header__link js-sort' href='#')
-                    i(class="fa fa-sort fa-lg")
-                    | Sort movies
-            li(class='header__item')
-                a(class='header__link js-filter' href='#')
-                    i(class="fa fa-filter fa-lg")
-                    | Filter movies
-            li(class='header__item')
-                a(class='header__link js-api' href='#')
-                    i(class="fa fa-database fa-lg")
-                    | Change movie's database
-ul(class='movies' id="js-main")
+div(class='wrapper-top')
+    header(class='header')
+        div(class='header__logo')
+            span(class='header__thin') Mov
+            | io
+        nav(class='header__nav')
+            ul(class='header__menu')
+                li(class='header__item')
+                    a(class='header__link js-minimize' href='#')
+                        i(class="icon icon-minus")
+                        | Minimize
+                li(class='header__item')
+                    a(class='header__link js-maximize' href='#')
+                        i(class="icon icon-plus")
+                        | Maximize
+                li(class='header__item')
+                    a(class='header__link js-close' href='#')
+                        i(class="icon icon-close")
+                        | Close
+div(class='wrapper-bottom')
+    main(class='main')
+        aside(class='aside')
+            nav(class='aside__nav')
+                ul(class='aside__menu')
+                    li(class='aside__item')
+                        a(class='aside__link aside__link--open js-open' href='#')
+                            i(class="fa fa-folder fa-lg")
+                            span(class='aside__text') Open folder
+                            input(class='field-folder js-folder' type='file' nwdirectory)
+                    li(class='aside__item')
+                        a(class='aside__link js-sort' href='#')
+                            i(class="fa fa-sort fa-lg")
+                            span(class='aside__text') Sort movies
+                    li(class='aside__item')
+                        a(class='aside__link js-filter' href='#')
+                            i(class="fa fa-filter fa-lg")
+                            span(class='aside__text') Filter movies
+                    li(class='aside__item')
+                        a(class='aside__link js-api' href='#')
+                            i(class="fa fa-database fa-lg")
+                            span(class='aside__text') Movie's database
+        section(class='content')
+            ul(class='movies js-movies')

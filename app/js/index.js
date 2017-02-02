@@ -24,25 +24,36 @@
 		order: "asc",
 		fallback: true,
 		extensions: [".avi", ".mkv", ".mp4"],
-		log: true
+		env: "dev"
 	};
 	// store that we find options in localStorage
 	let localstorage = false;
+	// store if window is maximize or not
+	let maximize = false;
+	win.unmaximize();
+
+	if (options.env === "dev") {
+		// in developement we show dev tools
+		win.showDevTools();
+		win.focus();
+	}
+
 
 	// initialize application
 	function init() {
-		if (!options.log) {
+		if (options.env !== "dev") {
 			// in production, we can remove console.log with options.log set to false
 			console.log = function () {};
-			win.showDevTools();
 		}
 
 		window.onload = function () {
 			getConfig();
 			createDb(() => {
-				renderLayout();
-				getDefaultFolder();
-				getAllMoviesFiles(options.folder);
+				setTimeout(() => {
+					renderLayout();
+					getDefaultFolder();
+					getAllMoviesFiles(options.folder);
+				},5000);
 			});
 		};
 	}
@@ -115,7 +126,7 @@
 
 	// set options of application to localStorage to find them on later use (don't set them if they exists)
 	function setConfig() {
-		if(!localstorage) {
+		if (!localstorage) {
 			for (let i in options) {
 				if (options.hasOwnProperty(i)) {
 					localStorage.setItem(i, options[i]);
@@ -146,14 +157,31 @@
 		pug.renderFile('app/views/layout.pug', {}, (err, res) => {
 			setConfig();
 
-			document.getElementById("movio").innerHTML = res;
+			document.querySelector(".js-page").innerHTML = res;
+
+			document.querySelector('.js-minimize').addEventListener('click', () => {
+				win.minimize();
+			});
+
+			document.querySelector('.js-maximize').addEventListener('click', () => {
+				if(maximize){
+					win.unmaximize();
+				}else{
+					win.maximize();
+				}
+				maximize = !maximize;
+			});
+
+			document.querySelector('.js-close').addEventListener('click', () => {
+				win.close(true); //true to force close
+			});
 
 			document.querySelector('.js-open').addEventListener('click', () => {
 				// trigger click on input file directory
-				document.querySelector('.field-folder').click();
+				document.querySelector('.js-folder').click();
 			});
 
-			document.querySelector('.field-folder').addEventListener('change', (event) => {
+			document.querySelector('.js-folder').addEventListener('change', (event) => {
 				openNewFolder(event);
 			});
 
@@ -177,7 +205,7 @@
 		sortArray(moviesinfos, options.order);
 
 		pug.renderFile('app/views/movies.pug', {"movies": moviesinfos}, (err, res) => {
-			document.getElementById("js-main").innerHTML = res;
+			document.querySelector(".js-movies").innerHTML = res;
 
 			el = document.querySelectorAll('.movie__content');
 			el.forEach((element) => {
@@ -190,10 +218,12 @@
 
 	// open new folder with a system modal thanks to input file directory
 	function openNewFolder(event) {
-		options.folder = event.target.value;
-		localStorage.setItem("folder", options.folder);
+		if(event.target.value && event.target.value !== "" && options.folder !== event.target.value) {
+			options.folder = event.target.value;
+			localStorage.setItem("folder", options.folder);
 
-		getAllMoviesFiles(options.folder);
+			getAllMoviesFiles(options.folder);
+		}
 	}
 
 	// change order and orderby options and render movies after that
@@ -233,7 +263,7 @@
 
 	// define default folder with downloads directory for windows or home directory for others
 	function getDefaultFolder() {
-		if(!localstorage) {
+		if (!localstorage) {
 			let folder = process.env[(process.platform === 'win32') ? 'USERPROFILE' : 'HOME'];
 			if (process.platform === 'win32') {
 				folder += '\\Downloads';
@@ -257,6 +287,9 @@
 	function getAllMoviesFiles(folder) {
 		moviesfiles = [];
 
+		if(!folder || folder === ""){
+			getDefaultFolder();
+		}
 		readFolder(folder, (err, res) => {
 			filterMoviesFiles(res, (err, res) => {
 				res.forEach((element, index, array) => {
@@ -298,7 +331,7 @@
 		pending = moviesfiles.length;
 		moviesfiles.forEach((element) => {
 			getMovieInfosFromDB(element.path, (err, res) => {
-				if(err) {
+				if (err) {
 					getMovieInfos(element.title, element.year, (err, res) => {
 						pending--;
 						moviesinfos.push(res);
@@ -308,15 +341,15 @@
 					});
 				} else {
 					// if we find IMDB infos in indexedDB and API used is IMDB
-					if(res.imdb && options.api === "imdb") {
+					if (res.imdb && options.api === "imdb") {
 						pending--;
 						movieapi.imdb = res.imdb[0];
 						moviesinfos.push(movieapi.imdb);
 						if (!pending) {
 							renderMovie();
 						}
-					// if we find Allocine infos and fallback from IMDB is on
-					} else if(res.allocine && options.fallback) {
+						// if we find Allocine infos and fallback from IMDB is on
+					} else if (res.allocine && options.fallback) {
 						pending--;
 						movieapi.allocine = convertMovieInfosFromAllocine(element.title, element.year, res.allocine);
 						moviesinfos.push(movieapi.allocine);

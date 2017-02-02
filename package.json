@@ -21,10 +21,12 @@
 	},
 	"license": "MIT",
 	"window": {
+		"frame": false,
+		"toolbar": false,
 		"width": 1000,
 		"height": 600,
-		"min_width": 600,
-		"min_height": 400
+		"min_width": 720,
+		"min_height": 500
 	},
 	"devDependencies": {
 		"allocine-api": "~0.1.9",

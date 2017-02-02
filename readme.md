@@ -9,11 +9,13 @@ Desktop application to help you on local movie's choice
 - [x] Use indexedDB to store movie data from API
 - [x] Use SASS
 - [x] Use BrowserSync to live reload
+- [x] Remove system's titlebar
+- [x] Review UI on menu, filter and order
 - [ ] Create Details page for a movie
 - [ ] Filter movies by genre, rating, year, actor, director
+- [ ] During Splash screen read folder and load movie's infos and display them after loading
+- [ ] Include in app Normalize, Google Fonts et Font Awesome (broken if offline)
 - [ ] Launch movie with vlc or open explorer and select it
-- [ ] Review UI on menu, filter and order
-- [ ] Remove system's titlebar
 - [ ] Internationalization
 - [ ] Create About page
 - [ ] Change Context menu
