@@ -1,9 +1,11 @@
 # Movio
+
 **:warning: Work in progress :warning:**
 
 Desktop application to help you on local movie's choice
 
 ## Tasks list
+
 - [x] Use indexedDB to store movie data from API
 - [x] Use SASS
 - [ ] Use BrowserSync to live reload
@@ -17,6 +19,7 @@ Desktop application to help you on local movie's choice
 - [ ] Change Context menu
 
 ## Technologies - languages
+
 - HTML
 - CSS
 - SASS
@@ -26,27 +29,39 @@ Desktop application to help you on local movie's choice
 - nw.js (Node Webkit)
 
 ## API used
+
 node-imdb-api: https://github.com/worr/node-imdb-api  
 node-allocine-api: https://github.com/leeroybrun/node-allocine-api
 
 ## Install
+
 if you don't want DevTools 
+
 ```sh
 git clone git@github.com:gharel/movio.git
 cd movio
 npm i
 ```
+
 if you want DevTools (npm doesn't take sdk option in package.json)
+
 ```sh
 git clone git@github.com:gharel/movio.git
 cd movio
 npm i nw@0.20.0-sdk
 npm i
 ```
+
 ## Use
+
+You need Ruby and SASS install on your machine  
+Ruby *(already install on MacOS)*: https://www.ruby-lang.org/fr/documentation/installation  
+SASS: http://sass-lang.com/install  
+
 ```sh
 npm start
 ```
 
 ## Licence
+
 MIT

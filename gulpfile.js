@@ -3,6 +3,7 @@
 const gulp = require('gulp');
 const sass = require('gulp-sass');
 const rename = require('gulp-rename');
+const csscomb = require('gulp-csscomb');
 const sourcemaps = require('gulp-sourcemaps');
 
 const dir = {
@@ -10,9 +11,16 @@ const dir = {
 		scss: 'app/scss/**/*.scss'
 	},
 	dist: {
+		scss: 'app/scss',
 		css: 'app/css'
 	}
 };
+
+gulp.task('csscomb', function () {
+	return gulp.src(dir.src.scss)
+		.pipe(csscomb())
+		.pipe(gulp.dest(dir.dist.scss));
+});
 
 gulp.task('sass', function () {
 	return gulp.src(dir.src.scss)

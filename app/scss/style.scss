@@ -8,15 +8,15 @@ $dark-color: #444;
 }
 
 body {
-	background: $light-color;
-	font-family: 'Ubuntu', sans-serif;
+	font-family: "Ubuntu", sans-serif;
 	padding-top: 40px;
+	background: $light-color;
 }
 
 .loading {
-	text-align: center;
-	margin: 20px auto;
 	font-style: italic;
+	margin: 20px auto;
+	text-align: center;
 }
 
 .header {
@@ -27,9 +27,9 @@ body {
 	width: 100%;
 
 	&__menu {
-		list-style: none;
-		padding: 0;
 		margin: 0;
+		padding: 0;
+		list-style: none;
 		background: $dark-color;
 	}
 
@@ -41,12 +41,12 @@ body {
 	}
 
 	&__link {
-		display: block;
-		color: $white-color;
-		text-decoration: none;
-		padding: 10px;
 		line-height: 20px;
+		display: block;
+		padding: 10px;
 		transition: background .2s;
+		text-decoration: none;
+		color: $white-color;
 
 		&:hover {
 			background: darken($dark-color, 20);
@@ -67,12 +67,13 @@ body {
 }
 
 .movies {
-	margin: 0;
-	list-style: none;
 	display: flex;
+	margin: 0;
+	padding: 5px;
+	list-style: none;
+
 	align-items: stretch;
 	flex-wrap: wrap;
-	padding: 5px;
 }
 
 .movie {
@@ -81,21 +82,21 @@ body {
 	padding: 5px;
 
 	&__content {
-		background: $black-color;
-		display: block;
 		font-weight: bold;
 		position: relative;
+		z-index: 1;
+		display: block;
 		height: 100%;
 		text-decoration: none;
 		color: inherit;
-		z-index: 1;
+		background: $black-color;
 
 		&:hover .movie__infos {
-			min-height: 100%;
-			background: transparentize($white-color, .1);
-			text-overflow: clip;
 			overflow: auto;
+			min-height: 100%;
 			white-space: normal;
+			text-overflow: clip;
+			background: transparentize($white-color, .1);
 		}
 
 		&:hover .movie__rating {
@@ -104,9 +105,9 @@ body {
 	}
 
 	&__picture {
+		display: block;
 		width: 100%;
 		height: 100%;
-		display: block;
 		min-height: 150px;
 	}
 
@@ -114,14 +115,14 @@ body {
 		position: absolute;
 		bottom: 0;
 		left: 0;
+		overflow: hidden;
 		width: 100%;
 		min-height: 0;
 		padding: 5%;
-		background: transparentize($white-color, .5);
-		text-overflow: ellipsis;
-		overflow: hidden;
-		white-space: nowrap;
 		transition: all .2s;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		background: transparentize($white-color, .5);
 	}
 
 	&__title {
@@ -129,14 +130,14 @@ body {
 	}
 
 	&__rating {
-		display: block;
+		font-size: 3rem;
 		position: absolute;
 		bottom: 0;
 		left: 0;
+		display: block;
 		padding: 5%;
-		opacity: 0;
-		font-size: 3rem;
 		transition: opacity .2s;
+		opacity: 0;
 	}
 
 	&__year {
