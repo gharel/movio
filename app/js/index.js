@@ -26,12 +26,8 @@
 		extensions: [".avi", ".mkv", ".mp4"],
 		log: true
 	};
-	// store if application is occupy
-	let working = false;
 	// store that we find options in localStorage
 	let localstorage = false;
-	// store if listener event change for open new folder is active
-	let listener = false;
 
 	// initialize application
 	function init() {
@@ -147,13 +143,18 @@
 
 	// generate HTML layout of application and add listener for menu item
 	function renderLayout() {
-		pug.renderFile('views/layout.pug', {}, (err, res) => {
+		pug.renderFile('app/views/layout.pug', {}, (err, res) => {
 			setConfig();
 
 			document.getElementById("movio").innerHTML = res;
 
 			document.querySelector('.js-open').addEventListener('click', () => {
-				openNewFolder();
+				// trigger click on input file directory
+				document.querySelector('.field-folder').click();
+			});
+
+			document.querySelector('.field-folder').addEventListener('change', (event) => {
+				openNewFolder(event);
 			});
 
 			document.querySelector('.js-sort').addEventListener('click', () => {
@@ -171,8 +172,7 @@
 		let el;
 		sortArray(moviesinfos, options.order);
 
-		pug.renderFile('views/movies.pug', {"movies": moviesinfos}, (err, res) => {
-			working = false;
+		pug.renderFile('app/views/movies.pug', {"movies": moviesinfos}, (err, res) => {
 			document.getElementById("js-main").innerHTML = res;
 
 			el = document.querySelectorAll('.movie__content');
@@ -184,22 +184,12 @@
 		});
 	}
 
-	// open new folder with a system modal thanks to input file
-	function openNewFolder() {
-		let input = document.querySelector('.field-folder');
-		if (!working) {
-			working = true;
-			if(!listener){
-				input.addEventListener('change', (event) => {
-					listener = true;
-					options.folder = event.target.value;
-					localStorage.setItem("folder", options.folder);
+	// open new folder with a system modal thanks to input file directory
+	function openNewFolder(event) {
+		options.folder = event.target.value;
+		localStorage.setItem("folder", options.folder);
 
-					getAllMoviesFiles(options.folder);
-				});
-			}
-			input.click();
-		}
+		getAllMoviesFiles(options.folder);
 	}
 
 	// change order and orderby options and render movies after that
@@ -308,6 +298,9 @@
 					getMovieInfos(element.title, element.year, (err, res) => {
 						pending--;
 						moviesinfos.push(res);
+						if (!pending) {
+							renderMovie();
+						}
 					});
 				} else {
 					// if we find IMDB infos in indexedDB and API used is IMDB
@@ -315,20 +308,26 @@
 						pending--;
 						movieapi.imdb = res.imdb[0];
 						moviesinfos.push(movieapi.imdb);
+						if (!pending) {
+							renderMovie();
+						}
 					// if we find Allocine infos and fallback from IMDB is on
 					} else if(res.allocine && options.fallback) {
 						pending--;
 						movieapi.allocine = convertMovieInfosFromAllocine(element.title, element.year, res.allocine);
 						moviesinfos.push(movieapi.allocine);
+						if (!pending) {
+							renderMovie();
+						}
 					} else {
 						getMovieInfos(element.title, element.year, (err, res) => {
 							pending--;
 							moviesinfos.push(res);
+							if (!pending) {
+								renderMovie();
+							}
 						});
 					}
-				}
-				if (!pending) {
-					renderMovie();
 				}
 			});
 		});

@@ -1,12 +1,12 @@
 {
 	"name": "movio",
-	"version": "0.1.0",
+	"version": "0.0.1",
 	"description": "Your local movie's advisor",
-	"main": "index.html",
+	"main": "app/index.html",
 	"scripts": {
-		"prestart": "echo prestart",
+		"prestart": "echo launch Movio",
 		"start": "nw --enable-logging=stderr",
-		"poststart": "echo poststart",
+		"poststart": "echo close Movio",
 		"build": "nwbuild . -p win32,win64",
 		"gulp": "gulp"
 	},
@@ -28,14 +28,14 @@
 	},
 	"devDependencies": {
 		"allocine-api": "~0.1.9",
-		"browser-sync": "~2.18.5",
-		"eslint": "~3.14.0",
+		"browser-sync": "~2.18.7",
+		"eslint": "~3.14.1",
 		"gulp": "~3.9.1",
 		"gulp-sass": "~3.1.0",
 		"imdb-api": "~2.2.1",
 		"nw": "~0.20.0-sdk",
 		"nw-builder": "~3.1.3",
-		"pug": "~2.0.0-beta10"
+		"pug": "~2.0.0-beta9"
 	},
 	"eslintConfig": {
 		"parserOptions": {

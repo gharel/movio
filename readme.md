@@ -30,12 +30,19 @@ node-imdb-api: https://github.com/worr/node-imdb-api
 node-allocine-api: https://github.com/leeroybrun/node-allocine-api
 
 ## Install
+if you don't want DevTools 
 ```sh
 git clone git@github.com:gharel/movio.git
 cd movio
 npm i
 ```
-
+if you want DevTools (npm doesn't take sdk option in package.json)
+```sh
+git clone git@github.com:gharel/movio.git
+cd movio
+npm i nw@0.20.0-sdk
+npm i
+```
 ## Use
 ```sh
 npm start
