@@ -1,0 +1,84 @@
+.c-header {
+	&__wrapper {
+		background: $color-primary;
+
+		-webkit-app-region: drag;
+	}
+	&__logo {
+		font-size: 1.75rem;
+		font-weight: 100;
+		line-height: 3rem;
+		width: $width-aside;
+		min-width: $min-width-aside;
+		max-width: $max-width-aside;
+		padding: 0 2rem;
+		text-align: center;
+		color: $color-white;
+		background: darken($color-primary, 20);
+	}
+	&__thin {
+		color: transparentize($color-white, .4);
+	}
+	&__nav {
+		width: $width-main;
+		text-align: right;
+		&-wrapper {
+			display: table;
+			width: 100%;
+			table-layout: fixed;
+		}
+	}
+	&__path {
+		font-size: .8rem;
+		line-height: 3rem;
+		display: table-cell;
+		overflow: hidden;
+		width: 99%;
+		padding: 0 2rem;
+		text-align: left;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		color: transparentize($color-white, .4);
+	}
+	&__menu {
+		display: table-cell;
+		width: 145px;
+		margin: 0;
+		padding: 1rem 2rem;
+		text-align: left;
+		white-space: nowrap;
+		border-left: 1px solid darken($color-primary, 10);
+
+		-webkit-app-region: no-drag;
+	}
+	&__item {
+		display: inline-block;
+		vertical-align: top;
+		& + & {
+			margin-left: 1rem;
+		}
+	}
+	&__link {
+		font-size: 0;
+		display: block;
+		text-decoration: none;
+		color: darken($color-primary, 20);
+		&:hover {
+			.c-header__icon {
+				&::before,
+				&::after {
+					border-color: $color-white;
+					box-shadow: inset 0 0 4px transparentize($color-black, .8), 0 0 74px transparentize($color-black, .8);
+				}
+			}
+		}
+		&:active {
+			.c-header__icon {
+				&::before,
+				&::after {
+					box-shadow: none;
+				}
+			}
+		}
+	}
+}

@@ -10,13 +10,15 @@ const sourcemaps = require('gulp-sourcemaps');
 const dir = {
 	src: {
 		scss: 'app/scss/**/*.scss',
-		html: 'app/*.html',
+		scssfilename: 'app/scss/main.scss',
+		html: 'app/index.html',
 		js: 'app/js/**/*.js',
 		pug: 'app/views/**/*.pug'
 	},
 	dist: {
 		scss: 'app/scss',
-		css: 'app/css'
+		css: 'app/css',
+		cssfilename: 'main.min.css'
 	}
 };
 
@@ -27,10 +29,10 @@ gulp.task('csscomb', function () {
 });
 
 gulp.task('sass', function () {
-	return gulp.src(dir.src.scss)
+	return gulp.src(dir.src.scssfilename)
 		.pipe(sourcemaps.init())
 		.pipe(sass({outputStyle: 'compressed'}).on('error', sass.logError))
-		.pipe(rename('style.min.css'))
+		.pipe(rename(dir.dist.cssfilename))
 		.pipe(sourcemaps.write('./'))
 		.pipe(gulp.dest(dir.dist.css))
 		.pipe(bs.reload({stream: true}));

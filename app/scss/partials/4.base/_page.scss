@@ -1,0 +1,17 @@
+// Page
+
+html {
+	font-family: $font-default;
+	overflow: hidden;
+	height: 100%;
+	color: $color-black;
+	background: darken($color-white, 10);
+}
+
+body {
+	height: 100%;
+	cursor: default;
+	user-select: none;
+
+	-webkit-app-region: no-drag;
+}

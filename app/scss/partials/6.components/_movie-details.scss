@@ -1,0 +1,35 @@
+.c-movie-details {
+	position: absolute;
+	z-index: 2;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: darken($color-white, 10);
+	&__wrapper {
+		overflow: auto;
+		height: 100%;
+	}
+	&__content {
+		padding: 2rem;
+	}
+	&__close {
+		font-size: 0;
+		position: absolute;
+		top: 0;
+		right: 0;
+		margin: 1rem 2rem;
+	}
+	&__icon {
+		&::before,
+		&::after {
+			border-color: $color-black;
+		}
+		&:hover {
+			&::before,
+			&::after {
+				border-color: lighten($color-black, 50);
+			}
+		}
+	}
+}

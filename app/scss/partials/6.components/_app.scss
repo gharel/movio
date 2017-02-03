@@ -1,0 +1,24 @@
+.c-movio {
+	height: 100%;
+}
+
+.c-page {
+	height: 100%;
+
+	align-content: stretch;
+}
+
+.c-main {
+	flex: 50;
+	overflow: hidden;
+	position: relative;
+	&__wrapper {
+		height: 100%;
+	}
+}
+
+.c-content {
+	overflow: auto;
+	width: $width-main;
+	background: darken($color-white, 10);
+}

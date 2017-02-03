@@ -1,0 +1,45 @@
+// Utilities
+
+// Allow important in utility class
+// scss-lint:disable ImportantRule
+
+// scss-lint:disable SelectorFormat
+
+// Hide visually but not from screen readers
+.u-hide {
+	position: absolute !important;
+	left: -9999em !important;
+}
+
+.u-hide\@lg {
+	display: none;
+}
+
+.u-hide\@md {
+	@include mq-md {
+		display: none;
+	}
+}
+
+.u-hide\@sm {
+	@include mq-sm {
+		display: none;
+	}
+}
+
+.u-hide\@xs {
+	@include mq-xs {
+		display: none;
+	}
+}
+
+@media print {
+	.u-hide\@print {
+		display: none;
+	}
+}
+
+.u-noscroll {
+	overflow: hidden;
+}
+

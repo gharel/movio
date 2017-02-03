@@ -1,0 +1,79 @@
+.c-movie-list {
+	padding: 5px;
+	&__item {
+		padding: 5px;
+	}
+
+	&__content {
+		font-weight: bold;
+		position: relative;
+		z-index: 1;
+		display: block;
+		height: 100%;
+		text-decoration: none;
+		color: inherit;
+		background: $color-black;
+
+		&:hover {
+			.c-movie-list__infos {
+				overflow: auto;
+				min-height: 100%;
+				white-space: normal;
+				text-overflow: clip;
+				background: transparentize($color-white, .1);
+			}
+
+			.c-movie-list__rating {
+				opacity: 1;
+			}
+		}
+	}
+
+	&__picture {
+		display: block;
+		width: 100%;
+		height: 100%;
+		min-height: 150px;
+	}
+
+	&__infos {
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		overflow: hidden;
+		width: 100%;
+		min-height: 0;
+		padding: 5%;
+		transition: all .2s;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		background: transparentize($color-white, .25);
+	}
+
+	&__title {
+		display: inline;
+	}
+
+	&__rating {
+		font-size: 3rem;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		display: block;
+		padding: 5%;
+		transition: opacity .2s;
+		opacity: 0;
+	}
+
+	&__year {
+		display: inline;
+
+		&::before {
+			content: "(";
+		}
+
+		&::after {
+			content: ")";
+		}
+	}
+}

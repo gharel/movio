@@ -11,11 +11,14 @@ Desktop application to help you on local movie's choice
 - [x] Use BrowserSync to live reload
 - [x] Remove system's titlebar
 - [x] Review UI on menu, filter and order
-- [ ] Create Details page for a movie
+- [x] Include in app Normalize (broken if offline)
+- [x] Refactor SCSS to use BEMIT (ITCSS)
 - [ ] Refactor code of renderLayout (addEventListener)
-- [ ] Filter movies by genre, rating, year, actor, director
+- [ ] Debug gulpfile to use CSSComb correctly
 - [ ] During Splash screen read folder and load movie's infos and display them after loading
-- [ ] Include in app Normalize, Google Fonts et Font Awesome (broken if offline)
+- [ ] Create Details page for a movie
+- [ ] Filter movies by genre, rating, year, actor, director
+- [ ] Include in app Google Fonts et Font Awesome (broken if offline)
 - [ ] Launch movie with vlc or open explorer and select it
 - [ ] Internationalization
 - [ ] Create About page
@@ -26,6 +29,8 @@ Desktop application to help you on local movie's choice
 - HTML
 - CSS
 - SASS
+- BEM
+- ITCSS
 - JavaScript
 - PUG (Jade)
 - node.js

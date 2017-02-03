@@ -1,0 +1,49 @@
+.o-icon {
+	display: inline-block;
+	width: 1rem;
+	height: 1rem;
+
+	&::before {
+		display: block;
+		width: 100%;
+		content: "";
+	}
+
+	&__minimize {
+		border: 1px solid transparent;
+		&::before {
+			margin-top: 50%;
+			border-top: 1px solid darken($color-primary, 20);
+		}
+	}
+
+	&__maximize {
+		border: 1px solid transparent;
+		&::before {
+			height: 100%;
+			border: 1px solid darken($color-primary, 20);
+		}
+	}
+
+	&__close {
+		border: 1px solid transparent;
+
+		&::before {
+			width: 150%;
+			margin-top: 50%;
+			margin-left: -25%;
+			transform: rotate(45deg);
+			border-top: 1px solid darken($color-primary, 25);
+		}
+
+		&::after {
+			display: block;
+			width: 150%;
+			margin-top: -5%;
+			margin-left: -25%;
+			content: "";
+			transform: rotate(-45deg);
+			border-top: 1px solid darken($color-primary, 25);
+		}
+	}
+}

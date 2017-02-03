@@ -1,0 +1,10 @@
+each val in movies
+    li(class='o-grid__item c-movie-list__item')
+        a(class='c-movie-list__content js-button' href='#action-details-show')
+            if val.poster != "N/A"
+                img(class='c-movie-list__picture' src=val.poster)
+            span(class='c-movie-list__infos')
+                span(class='c-movie-list__rating')= val.rating
+                span(class='c-movie-list__title')= val.title + " "
+                if val.year
+                    span(class='c-movie-list__year')= val.year

@@ -161,19 +161,19 @@
 			document.querySelector(".js-page").innerHTML = res;
 			document.querySelector('.js-path').innerHTML = options.folder;
 
-			elapiimdb = document.querySelector('.js-api-imdb');
-			elapiallocine = document.querySelector('.js-api-allocine');
-			elsorttitle = document.querySelector('.js-sort-title');
-			elsortyear = document.querySelector('.js-sort-year');
-			elsortrating = document.querySelector('.js-sort-rating');
-			elsortasc = document.querySelector('.js-sort-asc');
-			elsortdesc = document.querySelector('.js-sort-desc');
+			elapiimdb = document.querySelector('.js-button[href="#action-api-imdb"]');
+			elapiallocine = document.querySelector('.js-button[href="#action-api-allocine"]');
+			elsorttitle = document.querySelector('.js-button[href="#action-orderby-title"]');
+			elsortyear = document.querySelector('.js-button[href="#action-orderby-year"]');
+			elsortrating = document.querySelector('.js-button[href="#action-orderby-rating"]');
+			elsortasc = document.querySelector('.js-button[href="#action-order-asc"]');
+			elsortdesc = document.querySelector('.js-button[href="#action-order-desc"]');
 
-			document.querySelector('.js-minimize').addEventListener('click', () => {
+			document.querySelector('.js-button[href="#window-minimize"]').addEventListener('click', () => {
 				win.minimize();
 			});
 
-			document.querySelector('.js-maximize').addEventListener('click', () => {
+			document.querySelector('.js-button[href="#window-maximize"]').addEventListener('click', () => {
 				if (maximize) {
 					win.unmaximize();
 				} else {
@@ -182,11 +182,11 @@
 				maximize = !maximize;
 			});
 
-			document.querySelector('.js-close').addEventListener('click', () => {
+			document.querySelector('.js-button[href="#window-close"]').addEventListener('click', () => {
 				win.close(true); //true to force close
 			});
 
-			document.querySelector('.js-open').addEventListener('click', () => {
+			document.querySelector('.js-button[href="#action-open"]').addEventListener('click', () => {
 				// trigger click on input file directory
 				document.querySelector('.js-folder').click();
 			});
@@ -195,7 +195,7 @@
 				openNewFolder(event);
 			});
 
-			document.querySelector('.js-sort').addEventListener('click', function () {
+			document.querySelector('.js-button[href="#action-order"]').addEventListener('click', function () {
 				this.parentNode.classList.toggle('active');
 				if (options.order === 'asc') {
 					elsortasc.classList.add('active');
@@ -239,11 +239,11 @@
 				sortMovies('rating', null);
 			});
 
-			document.querySelector('.js-filter').addEventListener('click', function () {
+			document.querySelector('.js-button[href="#action-filter"]').addEventListener('click', function () {
 				this.parentNode.classList.toggle('active');
 			});
 
-			document.querySelector('.js-api').addEventListener('click', function () {
+			document.querySelector('.js-button[href="#action-api"]').addEventListener('click', function () {
 				this.parentNode.classList.toggle('active');
 				if (options.api === 'imdb') {
 					elapiimdb.classList.add('active');
@@ -269,10 +269,10 @@
 		let el;
 		sortArray(moviesinfos, options.order);
 
-		pug.renderFile('app/views/movies.pug', {"movies": moviesinfos}, (err, res) => {
-			document.querySelector(".js-movies").innerHTML = res;
+		pug.renderFile('app/views/movie-list.pug', {"movies": moviesinfos}, (err, res) => {
+			document.querySelector(".js-movie-list").innerHTML = res;
 
-			el = document.querySelectorAll('.movie__content');
+			el = document.querySelectorAll('.js-button[href="#action-details-show"]');
 			el.forEach((element) => {
 				element.addEventListener('click', function(event) {
 					renderDetails(this, event);
@@ -286,14 +286,14 @@
 		console.log(movieclicked);
 		console.log(event);
 
-		pug.renderFile('app/views/details.pug', {}, (err, res) => {
-			let el = document.querySelector(".js-details");
+		pug.renderFile('app/views/movie-details.pug', {}, (err, res) => {
+			let el = document.querySelector(".js-movie-details");
 			let parser = new DOMParser()
 			let nodeElement = parser.parseFromString(res, "text/html").firstChild.querySelector('.js-remove-details');
 
 			el.insertBefore(nodeElement, el.firstChild);
 
-			document.querySelector('.js-close-details').addEventListener('click', function(){
+			document.querySelector('.js-button[href="#action-details-close"]').addEventListener('click', function(){
 				let remove = document.querySelector(".js-remove-details");
 				remove.parentNode.removeChild(remove);
 			});

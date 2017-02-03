@@ -1,0 +1,21 @@
+// Responsive mixins
+
+// Use with @include mq-xs {}
+
+@mixin mq-xs {
+	@media only screen and (max-width: ($bp-between-xs-sm - 1)) {
+		@content;
+	}
+}
+
+@mixin mq-sm {
+	@media only screen and (max-width: ($bp-between-sm-md - 1)) {
+		@content;
+	}
+}
+
+@mixin mq-md {
+	@media only screen and (max-width: ($bp-between-md-lg - 1)) {
+		@content;
+	}
+}

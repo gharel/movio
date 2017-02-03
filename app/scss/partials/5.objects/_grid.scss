@@ -1,0 +1,33 @@
+.o-grid {
+	display: flex;
+	&:not(&--vertical):not(&--horizontal) {
+		flex-wrap: wrap;
+	}
+
+	&--vertical {
+		flex-direction: column;
+	}
+
+
+	&__row {
+		flex: 1;
+	}
+
+	&__col {
+		flex: auto;
+	}
+
+	&__item {
+		flex: 0 1 20%;
+
+		@include mq-md {
+			flex: 0 1 25%;
+		}
+		@include mq-sm {
+			flex: 0 1 33.33%;
+		}
+		@include mq-xs {
+			flex: 0 1 50%;
+		}
+	}
+}

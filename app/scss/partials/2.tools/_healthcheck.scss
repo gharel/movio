@@ -1,0 +1,34 @@
+// scss-lint:disable ColorKeyword
+// scss-lint:disable ColorVariable
+
+// Outline all classes
+[class] {
+	outline: 5px solid lightgrey;
+}
+
+// Outline all BEM Elements
+[class*="__"] {
+	outline: 5px solid grey;
+}
+
+// Outline all BEM Modifiers
+[class*="--"] {
+	outline: 5px solid darkgrey;
+}
+
+// Outline all Object classes
+[class^="o-"],
+[class*=" o-"] {
+	outline: 5px solid orange;
+}
+
+// Outline all Component classes
+[class^="c-"],
+[class*=" c-"] {
+	outline: 5px solid cyan;
+}
+
+// Outline all Responsive classes
+[class*="@"] {
+	outline: 5px solid rosybrown;
+}
