@@ -37,16 +37,16 @@ main(class='o-grid__row c-main js-movie-details')
                             div(class='c-aside__subitem')
                                 ul(class='o-list c-aside__submenu')
                                     li(class='c-aside__submenu-item')
-                                        a(class='c-aside__submenu-link o-button js-button' href='#action-orderby-title') By title
+                                        a.c-aside__submenu-link.o-button.js-button(class={active: options.orderby === 'title'} href='#action-order-orderby-title') By title
                                     li(class='c-aside__submenu-item')
-                                        a(class='c-aside__submenu-link o-button js-button' href='#action-orderby-year') By year
+                                        a.c-aside__submenu-link.o-button.js-button(class={active: options.orderby === 'year'} href='#action-order-orderby-year') By year
                                     li(class='c-aside__submenu-item')
-                                        a(class='c-aside__submenu-link o-button js-button' href='#action-orderby-rating') By rating
+                                        a.c-aside__submenu-link.o-button.js-button(class={active: options.orderby === 'rating'} href='#action-order-orderby-rating') By rating
                                 ul(class='o-list c-aside__submenu')
                                     li(class='c-aside__submenu-item')
-                                        a(class='c-aside__submenu-link o-button js-button' href='#action-order-asc') Ascending
+                                        a.c-aside__submenu-link.o-button.js-button(class={active: options.order === 'asc'} href='#action-order-order-asc') Ascending
                                     li(class='c-aside__submenu-item')
-                                        a(class='c-aside__submenu-link o-button js-button' href='#action-order-desc') Descending
+                                        a.c-aside__submenu-link.o-button.js-button(class={active: options.order === 'desc'} href='#action-order-order-desc') Descending
                         li(class='c-aside__item')
                             a(class='c-aside__link js-button' href='#action-filter')
                                 i(class="c-aside__icon fa fa-filter fa-lg")
@@ -59,8 +59,8 @@ main(class='o-grid__row c-main js-movie-details')
                             div(class='c-aside__subitem')
                                 ul(class='o-list c-aside__submenu')
                                     li(class='c-aside__submenu-item')
-                                        a(class='c-aside__submenu-link o-button js-button' href='#action-api-imdb') IMDB
+                                        a.c-aside__submenu-link.o-button.js-button(class={active: options.api === 'imdb'} href='#action-api-api-imdb') IMDB
                                     li(class='c-aside__submenu-item')
-                                        a(class='c-aside__submenu-link o-button js-button' href='#action-api-allocine') Allociné
+                                        a.c-aside__submenu-link.o-button.js-button(class={active: options.api === 'allocine'} href='#action-api-api-allocine') Allociné
         section(class='o-grid__col c-content')
             ul(class='o-grid o-grid--masonry o-list c-movie-list js-movie-list')

@@ -15,6 +15,9 @@
 	// store movie path, filename, title and year (if found)
 	let moviesfiles = [];
 
+	// store function to call them dynamically
+	let fns = {};
+
 	// store connection and db with indexedDB
 	let connection, db;
 	let options = {
@@ -152,114 +155,85 @@
 		return tmp;
 	}
 
+	// capitalize the first letter of a string
+	function capitalizeFirstLetter(string) {
+		return string.charAt(0).toUpperCase() + string.slice(1);
+	}
+
+	// change orderby options and render movies after that
+	fns.changeOrderby = function (orderby) {
+		options.orderby = orderby;
+		localStorage.setItem("orderby", options.orderby);
+		renderMovie();
+	};
+
+	// change order options and render movies after that
+	fns.changeOrder = function (order) {
+		options.order = order;
+		localStorage.setItem("order", options.order);
+		renderMovie();
+	};
+
+	// change API used to retrieve movie's data
+	fns.changeApi = function (api) {
+		options.api = api;
+		localStorage.setItem("api", options.api);
+		getAllMoviesInfos();
+	};
+
 	// generate HTML layout of application and add listener for menu item
 	function renderLayout() {
-		pug.renderFile('app/views/layout.pug', {}, (err, res) => {
-			let elapiimdb, elapiallocine, elsorttitle, elsortyear, elsortrating, elsortasc, elsortdesc;
+		pug.renderFile('app/views/layout.pug', {options: options}, (err, res) => {
+			let buttons;
 			setConfig();
 
 			document.querySelector(".js-page").innerHTML = res;
 			document.querySelector('.js-path').innerHTML = options.folder;
 
-			elapiimdb = document.querySelector('.js-button[href="#action-api-imdb"]');
-			elapiallocine = document.querySelector('.js-button[href="#action-api-allocine"]');
-			elsorttitle = document.querySelector('.js-button[href="#action-orderby-title"]');
-			elsortyear = document.querySelector('.js-button[href="#action-orderby-year"]');
-			elsortrating = document.querySelector('.js-button[href="#action-orderby-rating"]');
-			elsortasc = document.querySelector('.js-button[href="#action-order-asc"]');
-			elsortdesc = document.querySelector('.js-button[href="#action-order-desc"]');
-
-			document.querySelector('.js-button[href="#window-minimize"]').addEventListener('click', () => {
-				win.minimize();
-			});
-
-			document.querySelector('.js-button[href="#window-maximize"]').addEventListener('click', () => {
-				if (maximize) {
-					win.unmaximize();
-				} else {
-					win.maximize();
-				}
-				maximize = !maximize;
-			});
-
-			document.querySelector('.js-button[href="#window-close"]').addEventListener('click', () => {
-				win.close(true); //true to force close
-			});
-
-			document.querySelector('.js-button[href="#action-open"]').addEventListener('click', () => {
-				// trigger click on input file directory
-				document.querySelector('.js-folder').click();
+			buttons = document.querySelectorAll('.js-button');
+			buttons.forEach((element) => {
+				element.addEventListener('click', function (event) {
+					let params = this.getAttribute('href').substr(1).split('-');
+					let selector;
+					let argument;
+					let functionName;
+					if (params[0] === 'window') {
+						if (params[1] === 'maximize' && !maximize) {
+							win.maximize();
+							maximize = !maximize;
+						} else if (params[1] === 'maximize' && maximize) {
+							win.unmaximize();
+							maximize = !maximize;
+						} else {
+							// launch win.minimize() or others in function of params in href
+							win[params[1]]();
+						}
+					} else {
+						if (params.length < 3) {
+							this.parentNode.classList.toggle('active');
+							if (params[1] === 'open') {
+								// trigger click on input file directory
+								document.querySelector('.js-folder').click();
+							}
+						} else {
+							// generate a copy of params without last param
+							selector = params.slice(0);
+							selector.pop();
+							selector = selector.join('-');
+							document.querySelectorAll('.js-button[href^="#' + selector + '-"]').forEach((element) => {
+								element.classList.remove('active');
+							});
+							this.classList.add('active');
+							functionName = "change" + capitalizeFirstLetter(params[params.length - 2]);
+							argument = params[params.length - 1];
+							fns[functionName](argument);
+						}
+					}
+				});
 			});
 
 			document.querySelector('.js-folder').addEventListener('change', (event) => {
 				openNewFolder(event);
-			});
-
-			document.querySelector('.js-button[href="#action-order"]').addEventListener('click', function () {
-				this.parentNode.classList.toggle('active');
-				if (options.order === 'asc') {
-					elsortasc.classList.add('active');
-				} else {
-					elsortdesc.classList.add('active');
-				}
-				if (options.orderby === 'title') {
-					elsorttitle.classList.add('active');
-				} else if(options.orderby === 'year') {
-					elsortyear.classList.add('active');
-				} else {
-					elsortrating.classList.add('active');
-				}
-			});
-			elsortasc.addEventListener('click', function () {
-				this.classList.add('active');
-				elsortdesc.classList.remove('active');
-				sortMovies(null, 'asc');
-			});
-			elsortdesc.addEventListener('click', function () {
-				this.classList.add('active');
-				elsortasc.classList.remove('active');
-				sortMovies(null, 'desc');
-			});
-			elsorttitle.addEventListener('click', function () {
-				this.classList.add('active');
-				elsortyear.classList.remove('active');
-				elsortrating.classList.remove('active');
-				sortMovies('title', null);
-			});
-			elsortyear.addEventListener('click', function () {
-				this.classList.add('active');
-				elsorttitle.classList.remove('active');
-				elsortrating.classList.remove('active');
-				sortMovies('year', null);
-			});
-			elsortrating.addEventListener('click', function () {
-				this.classList.add('active');
-				elsortyear.classList.remove('active');
-				elsorttitle.classList.remove('active');
-				sortMovies('rating', null);
-			});
-
-			document.querySelector('.js-button[href="#action-filter"]').addEventListener('click', function () {
-				this.parentNode.classList.toggle('active');
-			});
-
-			document.querySelector('.js-button[href="#action-api"]').addEventListener('click', function () {
-				this.parentNode.classList.toggle('active');
-				if (options.api === 'imdb') {
-					elapiimdb.classList.add('active');
-				} else {
-					elapiallocine.classList.add('active');
-				}
-			});
-			elapiimdb.addEventListener('click', function () {
-				this.classList.add('active');
-				elapiallocine.classList.remove('active');
-				changeApi('imdb');
-			});
-			elapiallocine.addEventListener('click', function () {
-				this.classList.add('active');
-				elapiimdb.classList.remove('active')
-				changeApi('allocine');
 			});
 		});
 	}
@@ -272,9 +246,9 @@
 		pug.renderFile('app/views/movie-list.pug', {"movies": moviesinfos}, (err, res) => {
 			document.querySelector(".js-movie-list").innerHTML = res;
 
-			el = document.querySelectorAll('.js-button[href="#action-details-show"]');
+			el = document.querySelectorAll('.js-details-show');
 			el.forEach((element) => {
-				element.addEventListener('click', function(event) {
+				element.addEventListener('click', function (event) {
 					renderDetails(this, event);
 				});
 			});
@@ -293,7 +267,7 @@
 
 			el.insertBefore(nodeElement, el.firstChild);
 
-			document.querySelector('.js-button[href="#action-details-close"]').addEventListener('click', function(){
+			document.querySelector('.js-details-close').addEventListener('click', function () {
 				let remove = document.querySelector(".js-remove-details");
 				remove.parentNode.removeChild(remove);
 			});
@@ -309,32 +283,7 @@
 			document.querySelector('.js-path').innerHTML = options.folder;
 
 			getAllMoviesFiles(options.folder);
-
 		}
-	}
-
-	// change order and orderby options and render movies after that
-	function sortMovies(orderby, order) {
-		if (orderby){
-			options.orderby = orderby;
-		}
-		if(order) {
-			options.order = order;
-		}
-
-		localStorage.setItem("orderby", options.orderby);
-		localStorage.setItem("order", options.order);
-
-		renderMovie();
-	}
-
-	// change API used to retrieve movie's data
-	function changeApi(api) {
-		options.api = api;
-
-		localStorage.setItem("api", options.api);
-
-		getAllMoviesInfos();
 	}
 
 	// define default folder with downloads directory for windows or home directory for others

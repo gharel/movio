@@ -32,7 +32,19 @@
 					border-width: 13px 10px 13px 0;
 					border-style: solid;
 					border-color: transparent darken($color-white, 10) transparent transparent;
+					animation-name: triangle;
+					animation-duration: .2s;
 				}
+
+				@keyframes triangle {
+					from {
+						right: -10px;
+					}
+					to {
+						right: 0;
+					}
+				}
+
 				.c-aside__icon {
 					color: lighten($color-black, 40);
 				}
@@ -51,7 +63,7 @@
 		text-decoration: none;
 		text-transform: uppercase;
 		color: lighten($color-black, 25);
-
+		transition: background .2s, color .2s;
 		&:hover {
 			background: $color-black;
 		}
@@ -65,6 +77,7 @@
 			display: block;
 			padding: .1rem 0 .4rem;
 			color: lighten($color-black, 10);
+			transition: color .2s;
 		}
 	}
 	&__text {
@@ -82,19 +95,6 @@
 		&-item {
 			display: block;
 			margin-bottom: .5rem;
-		}
-		&-link {
-			display: block;
-			margin: 0 1rem;
-			padding: .2rem .5rem;
-			text-decoration: none;
-			color: lighten($color-black, 20);
-			border: 1px solid lighten($color-black, 20);
-			&.active {
-				color: $color-white;
-				border: 1px solid $color-primary;
-				background: $color-primary;
-			}
 		}
 	}
 }

@@ -13,11 +13,11 @@ Desktop application to help you on local movie's choice
 - [x] Review UI on menu, filter and order
 - [x] Include in app Normalize (broken if offline)
 - [x] Refactor SCSS to use BEMIT (ITCSS)
-- [ ] Refactor code of renderLayout (addEventListener)
-- [ ] Debug gulpfile to use CSSComb correctly
+- [x] Refactor code of renderLayout (addEventListener)
 - [ ] During Splash screen read folder and load movie's infos and display them after loading
 - [ ] Create Details page for a movie
 - [ ] Filter movies by genre, rating, year, actor, director
+- [ ] Correct CSSComb to add space before rules and not reorder @include rules (mq)
 - [ ] Include in app Google Fonts et Font Awesome (broken if offline)
 - [ ] Launch movie with vlc or open explorer and select it
 - [ ] Internationalization

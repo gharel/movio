@@ -2,6 +2,17 @@
 	padding: 5px;
 	&__item {
 		padding: 5px;
+		animation-name: movie;
+		animation-duration: .2s;
+	}
+
+	@keyframes movie {
+		from {
+			transform: scale(.7);
+		}
+		to {
+			transform: scale(1);
+		}
 	}
 
 	&__content {

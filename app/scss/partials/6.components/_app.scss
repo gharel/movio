@@ -9,9 +9,9 @@
 }
 
 .c-main {
-	flex: 50;
-	overflow: hidden;
 	position: relative;
+	overflow: hidden;
+	flex: 50;
 	&__wrapper {
 		height: 100%;
 	}

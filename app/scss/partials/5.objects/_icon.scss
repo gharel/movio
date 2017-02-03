@@ -14,6 +14,7 @@
 		&::before {
 			margin-top: 50%;
 			border-top: 1px solid darken($color-primary, 20);
+			transition: border .2s;
 		}
 	}
 
@@ -22,6 +23,7 @@
 		&::before {
 			height: 100%;
 			border: 1px solid darken($color-primary, 20);
+			transition: border .2s;
 		}
 	}
 
@@ -34,6 +36,7 @@
 			margin-left: -25%;
 			transform: rotate(45deg);
 			border-top: 1px solid darken($color-primary, 25);
+			transition: border .2s;
 		}
 
 		&::after {
@@ -44,6 +47,7 @@
 			content: "";
 			transform: rotate(-45deg);
 			border-top: 1px solid darken($color-primary, 25);
+			transition: border .2s;
 		}
 	}
 }
