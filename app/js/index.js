@@ -9,6 +9,7 @@
 	const allocine = require('allocine-api');
 	const win = gui.Window.get();
 	const console = win.window.console;
+	const maxReadFileAtTime = 20;
 
 	// store movie infos from API
 	let moviesinfos = [];
@@ -241,7 +242,12 @@
 	// generate HTML of movies and listen click on movie
 	function renderMovie() {
 		let el;
+		let scrollingEl = document.querySelector('.c-content');
 		sortArray(moviesinfos, options.order);
+
+		scrollingEl.addEventListener('scroll', (e) => {
+			console.log(e);
+		});
 
 		pug.renderFile('app/views/movie-list.pug', {"movies": moviesinfos}, (err, res) => {
 			document.querySelector(".js-movie-list").innerHTML = res;
@@ -354,36 +360,13 @@
 	function getAllMoviesInfos() {
 		let pending;
 		let movieapi = {};
+		let cpt = 0;
 		moviesinfos = [];
-		pending = moviesfiles.length;
+		pending = maxReadFileAtTime; //moviesfiles.length;
 		moviesfiles.forEach((element) => {
-			getMovieInfosFromDB(element.path, (err, res) => {
-				if (err) {
-					getMovieInfos(element.title, element.year, (err, res) => {
-						pending--;
-						moviesinfos.push(res);
-						if (!pending) {
-							renderMovie();
-						}
-					});
-				} else {
-					// if we find IMDB infos in indexedDB and API used is IMDB
-					if (res.imdb && options.api === "imdb") {
-						pending--;
-						movieapi.imdb = res.imdb[0];
-						moviesinfos.push(movieapi.imdb);
-						if (!pending) {
-							renderMovie();
-						}
-						// if we find Allocine infos and fallback from IMDB is on
-					} else if (res.allocine && options.fallback) {
-						pending--;
-						movieapi.allocine = convertMovieInfosFromAllocine(element.title, element.year, res.allocine);
-						moviesinfos.push(movieapi.allocine);
-						if (!pending) {
-							renderMovie();
-						}
-					} else {
+			if(cpt < maxReadFileAtTime) {
+				getMovieInfosFromDB(element.path, (err, res) => {
+					if (err) {
 						getMovieInfos(element.title, element.year, (err, res) => {
 							pending--;
 							moviesinfos.push(res);
@@ -391,9 +374,38 @@
 								renderMovie();
 							}
 						});
+					} else {
+						// if we find IMDB infos in indexedDB and API used is IMDB
+						if (res.imdb && options.api === "imdb") {
+							pending--;
+							movieapi.imdb = res.imdb[0];
+							moviesinfos.push(movieapi.imdb);
+							if (!pending) {
+								renderMovie();
+							}
+							// if we find Allocine infos and fallback from IMDB is on
+						} else if (res.allocine && options.fallback) {
+							pending--;
+							movieapi.allocine = convertMovieInfosFromAllocine(element.title, element.year, res.allocine);
+							moviesinfos.push(movieapi.allocine);
+							if (!pending) {
+								renderMovie();
+							}
+						} else {
+							getMovieInfos(element.title, element.year, (err, res) => {
+								pending--;
+								moviesinfos.push(res);
+								if (!pending) {
+									renderMovie();
+								}
+							});
+						}
 					}
-				}
-			});
+				});
+			} else {
+
+			}
+			cpt++;
 		});
 	}
 
